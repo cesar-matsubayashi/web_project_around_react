@@ -7,6 +7,26 @@ import Popup from "./components/popup/Popup";
 import NewCard from "./components/popup/components/NewCard/NewCard";
 import EditProfile from "./components/popup/components/EditProfile/EditProfile";
 import EditAvatar from "./components/popup/components/EditAvatar/EditAvatar";
+import Card from "./components/Card/Card";
+
+const cards = [
+  {
+    isLiked: false,
+    _id: "5d1f0611d321eb4bdcd707dd",
+    name: "Yosemite Valley",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
+    owner: "5d1f0611d321eb4bdcd707dd",
+    createdAt: "2019-07-05T08:10:57.741Z",
+  },
+  {
+    isLiked: false,
+    _id: "5d1f064ed321eb4bdcd707de",
+    name: "Lake Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
+    owner: "5d1f0611d321eb4bdcd707dd",
+    createdAt: "2019-07-05T08:11:58.324Z",
+  },
+];
 
 export default function Main() {
   const [popup, setPopup] = useState(null);
@@ -65,7 +85,11 @@ export default function Main() {
       </section>
 
       <main className="content">
-        <section className="gallery"></section>
+        <section className="gallery">
+          {cards.map((card) => (
+            <Card key={card._id} card={card} />
+          ))}
+        </section>
         {popup && (
           <Popup onClose={handleClosePopup} title={popup.title}>
             {popup.children}
