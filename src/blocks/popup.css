@@ -1,5 +1,5 @@
 .popup {
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -23,24 +23,19 @@
   cursor: pointer;
 }
 
+.popup__title {
+  margin: 0;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: black;
+}
+
 .popup__close:hover {
   opacity: 0.6;
 }
 
 .popup__content {
-  max-width: 75vw;
-  max-height: 75vh;
-  display: flex;
-  position: relative;
-  -webkit-background-size: cover;
-  background-size: cover;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  padding: 0;
-}
-
-.popup__content_form {
   position: fixed;
   top: 50%;
   left: 50%;

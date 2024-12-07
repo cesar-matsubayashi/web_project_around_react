@@ -2,8 +2,8 @@ import logo from "../../images/logo.svg";
 
 function Header() {
   return (
-    <header class="header">
-      <img src={logo} alt="Logo Around The US." class="header__logo" />
+    <header className="header">
+      <img src={logo} alt="Logo Around The US." className="header__logo" />
     </header>
   );
 }
