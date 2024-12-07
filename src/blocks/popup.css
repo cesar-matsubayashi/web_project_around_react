@@ -47,7 +47,12 @@
   font-family: "Inter", sans-serif;
 }
 
+.popup__content_content_image {
+  padding: 0;
+}
+
 .popup__image {
+  border-radius: 10px;
   max-width: 75vw;
   max-height: 75vh;
   display: flex;

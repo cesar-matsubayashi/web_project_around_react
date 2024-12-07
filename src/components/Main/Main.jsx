@@ -87,7 +87,11 @@ export default function Main() {
       <main className="content">
         <section className="gallery">
           {cards.map((card) => (
-            <Card key={card._id} card={card} />
+            <Card
+              handleOpenPopup={handleOpenPopup}
+              key={card._id}
+              card={card}
+            />
           ))}
         </section>
         {popup && (

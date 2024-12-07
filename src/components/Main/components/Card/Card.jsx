@@ -1,12 +1,19 @@
 import deleteIcon from "../../../../images/trash.svg";
 import likeIcon from "../../../../images/like.svg";
+import ImagePopup from "../popup/components/ImagePopup/ImagePopup";
 
-export default function Card(props) {
-  const { name, link, isLiked } = props.card;
+export default function Card({ handleOpenPopup, card }) {
+  const { name, link, isLiked } = card;
+  const imagePopup = { children: <ImagePopup card={card} /> };
 
   return (
     <div className="gallery__card" id="">
-      <img src={link} alt="" className="gallery__photo" />
+      <img
+        onClick={() => handleOpenPopup(imagePopup)}
+        src={link}
+        alt=""
+        className="gallery__photo"
+      />
 
       <img src={deleteIcon} alt="Excluir" className="gallery__trash" />
 
