@@ -11,7 +11,7 @@ export default function Card({ handleOpenPopup, card }) {
       <img
         onClick={() => handleOpenPopup(imagePopup)}
         src={link}
-        alt=""
+        alt={name}
         className="gallery__photo"
       />
 
