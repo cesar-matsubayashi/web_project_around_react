@@ -1,10 +1,17 @@
 import deleteIcon from "../../../../images/trash.svg";
 import likeIcon from "../../../../images/like.svg";
+import likeIconActive from "../../../../images/like-active.svg";
 import ImagePopup from "../popup/components/ImagePopup/ImagePopup";
 
-export default function Card({ handleOpenPopup, card }) {
-  const { name, link, isLiked } = card;
+export default function Card({ handleOpenPopup, card, isLiked }) {
+  const { name, link } = card;
   const imagePopup = { children: <ImagePopup card={card} /> };
+
+  const cardLikeButtonClassName = `gallery__like-btn ${
+    isLiked ? "gallery__like-btn_active" : ""
+  }`;
+
+  const like = isLiked ? likeIconActive : likeIcon;
 
   return (
     <div className="gallery__card" id="">
@@ -21,7 +28,7 @@ export default function Card({ handleOpenPopup, card }) {
         <li className="gallery__title">{name}</li>
 
         <li className="gallery__like-content">
-          <img src={likeIcon} alt="Like" className="gallery__like-btn" />
+          <img src={like} alt="Like" className={cardLikeButtonClassName} />
           <p className="gallery__like-count">0</p>
         </li>
       </ul>

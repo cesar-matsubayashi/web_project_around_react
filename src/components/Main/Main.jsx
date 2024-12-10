@@ -42,6 +42,10 @@ export default function Main() {
     setPopup();
   }
 
+  function checkCurrentUserLiked(card) {
+    return card.likes.some((like) => like._id === currentUser._id);
+  }
+
   return (
     <>
       <section className="profile">
@@ -91,6 +95,7 @@ export default function Main() {
               handleOpenPopup={handleOpenPopup}
               key={card._id}
               card={card}
+              isLiked={checkCurrentUserLiked(card)}
             />
           ))}
         </section>
