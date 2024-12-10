@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import avatar from "../../images/avatar.jpg";
 import editAvatarButton from "../../images/edit-avatar.svg";
 import editButton from "../../images/edit-button.svg";
@@ -9,10 +9,12 @@ import EditProfile from "./components/popup/components/EditProfile/EditProfile";
 import EditAvatar from "./components/popup/components/EditAvatar/EditAvatar";
 import Card from "./components/Card/Card";
 import api from "../../utils/api";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function Main() {
   const [popup, setPopup] = useState(null);
   const [cards, setCards] = useState([]);
+  const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
     api
@@ -23,7 +25,7 @@ export default function Main() {
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, []);
 
   const newCardPopup = { title: "Novo Local", children: <NewCard /> };
   const editProfilePopup = {
@@ -43,7 +45,11 @@ export default function Main() {
   return (
     <>
       <section className="profile">
-        <img src={avatar} alt="Profile photo" className="profile__photo" />
+        <img
+          src={currentUser.avatar}
+          alt="Profile photo"
+          className="profile__photo"
+        />
         <div
           className="profile__avatar-edit"
           onClick={() => handleOpenPopup(editAvatarPopup)}
@@ -56,14 +62,14 @@ export default function Main() {
         </div>
 
         <div className="profile__name-container">
-          <h1 className="profile__name">Jacques Cousteau</h1>
+          <h1 className="profile__name">{currentUser.name}</h1>
           <img
             src={editButton}
             alt="Edit button"
             className="profile__edit-btn"
             onClick={() => handleOpenPopup(editProfilePopup)}
           />
-          <p className="profile__about"></p>
+          <p className="profile__about">{currentUser.about}</p>
         </div>
 
         <div
