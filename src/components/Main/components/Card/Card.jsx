@@ -4,7 +4,7 @@ import likeIconActive from "../../../../images/like-active.svg";
 import ImagePopup from "../popup/components/ImagePopup/ImagePopup";
 
 export default function Card({ handleOpenPopup, card, isLiked }) {
-  const { name, link } = card;
+  const { name, link, likes } = card;
   const imagePopup = { children: <ImagePopup card={card} /> };
 
   const cardLikeButtonClassName = `gallery__like-btn ${
@@ -29,7 +29,7 @@ export default function Card({ handleOpenPopup, card, isLiked }) {
 
         <li className="gallery__like-content">
           <img src={like} alt="Like" className={cardLikeButtonClassName} />
-          <p className="gallery__like-count">0</p>
+          <p className="gallery__like-count">{card.likes.length}</p>
         </li>
       </ul>
     </div>
