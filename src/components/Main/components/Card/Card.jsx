@@ -2,11 +2,14 @@ import deleteIcon from "../../../../images/trash.svg";
 import likeIcon from "../../../../images/like.svg";
 import likeIconActive from "../../../../images/like-active.svg";
 import ImagePopup from "../popup/components/ImagePopup/ImagePopup";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../../../contexts/CurrentUserContext";
 
 export default function Card(props) {
   const { handleOpenPopup, card, isLiked, onCardLike, onCardDelete } = props;
-  const { name, link, likes } = card;
+  const { name, link, likes, owner } = card;
   const imagePopup = { children: <ImagePopup card={card} /> };
+  const currentUser = useContext(CurrentUserContext);
 
   const cardLikeButtonClassName = `gallery__like-btn ${
     isLiked ? "gallery__like-btn_active" : ""
@@ -23,12 +26,14 @@ export default function Card(props) {
         className="gallery__photo"
       />
 
-      <img
-        src={deleteIcon}
-        alt="Excluir"
-        className="gallery__trash"
-        onClick={() => onCardDelete(card)}
-      />
+      {currentUser._id == owner._id && (
+        <img
+          src={deleteIcon}
+          alt="Excluir"
+          className="gallery__trash"
+          onClick={() => onCardDelete(card)}
+        />
+      )}
 
       <ul className="gallery__caption">
         <li className="gallery__title">{name}</li>
