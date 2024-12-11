@@ -3,7 +3,8 @@ import likeIcon from "../../../../images/like.svg";
 import likeIconActive from "../../../../images/like-active.svg";
 import ImagePopup from "../popup/components/ImagePopup/ImagePopup";
 
-export default function Card({ handleOpenPopup, card, isLiked }) {
+export default function Card(props) {
+  const { handleOpenPopup, card, isLiked, onCardLike } = props;
   const { name, link, likes } = card;
   const imagePopup = { children: <ImagePopup card={card} /> };
 
@@ -28,8 +29,13 @@ export default function Card({ handleOpenPopup, card, isLiked }) {
         <li className="gallery__title">{name}</li>
 
         <li className="gallery__like-content">
-          <img src={like} alt="Like" className={cardLikeButtonClassName} />
-          <p className="gallery__like-count">{card.likes.length}</p>
+          <img
+            src={like}
+            alt="Like"
+            className={cardLikeButtonClassName}
+            onClick={() => onCardLike(card)}
+          />
+          <p className="gallery__like-count">{likes.length}</p>
         </li>
       </ul>
     </div>

@@ -46,6 +46,21 @@ export default function Main() {
     return card.likes.some((like) => like._id === currentUser._id);
   }
 
+  async function handleCardLike(card) {
+    const isLiked = checkCurrentUserLiked(card);
+
+    await api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((currentCard) =>
+            currentCard._id === card._id ? newCard : currentCard
+          )
+        );
+      })
+      .catch((error) => console.error(error));
+  }
+
   return (
     <>
       <section className="profile">
@@ -96,6 +111,7 @@ export default function Main() {
               key={card._id}
               card={card}
               isLiked={checkCurrentUserLiked(card)}
+              onCardLike={handleCardLike}
             />
           ))}
         </section>
