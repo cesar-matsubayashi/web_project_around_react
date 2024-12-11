@@ -43,7 +43,8 @@ class API {
     return this._makeRequest(`/cards/${cardId}`, "DELETE");
   }
 
-  likeCard(cardId, method) {
+  changeLikeCardStatus(cardId, status) {
+    const method = status ? "PUT" : "DELETE";
     return this._makeRequest(`/cards/likes/${cardId}`, method);
   }
 
