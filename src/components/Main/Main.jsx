@@ -61,6 +61,17 @@ export default function Main() {
       .catch((error) => console.error(error));
   }
 
+  async function handleCardDelete(card) {
+    await api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((cards) =>
+          cards.filter((currentCard) => currentCard._id !== card._id)
+        );
+      })
+      .catch((error) => console.error(error));
+  }
+
   return (
     <>
       <section className="profile">
@@ -112,6 +123,7 @@ export default function Main() {
               card={card}
               isLiked={checkCurrentUserLiked(card)}
               onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />
           ))}
         </section>

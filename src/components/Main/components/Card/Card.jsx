@@ -4,7 +4,7 @@ import likeIconActive from "../../../../images/like-active.svg";
 import ImagePopup from "../popup/components/ImagePopup/ImagePopup";
 
 export default function Card(props) {
-  const { handleOpenPopup, card, isLiked, onCardLike } = props;
+  const { handleOpenPopup, card, isLiked, onCardLike, onCardDelete } = props;
   const { name, link, likes } = card;
   const imagePopup = { children: <ImagePopup card={card} /> };
 
@@ -23,7 +23,12 @@ export default function Card(props) {
         className="gallery__photo"
       />
 
-      <img src={deleteIcon} alt="Excluir" className="gallery__trash" />
+      <img
+        src={deleteIcon}
+        alt="Excluir"
+        className="gallery__trash"
+        onClick={() => onCardDelete(card)}
+      />
 
       <ul className="gallery__caption">
         <li className="gallery__title">{name}</li>
