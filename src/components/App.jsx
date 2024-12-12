@@ -87,9 +87,23 @@ function App() {
       .catch((error) => console.error(error));
   }
 
+  const handleAddPlaceSubmit = (data) => {
+    (async () => {
+      await api.addCard(data).then((newCard) => {
+        setCards([newCard, ...cards]);
+        handleClosePopup();
+      });
+    })();
+  };
+
   return (
     <CurrentUserContext.Provider
-      value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}
+      value={{
+        currentUser,
+        handleUpdateUser,
+        handleUpdateAvatar,
+        handleAddPlaceSubmit,
+      }}
     >
       <div className="page">
         <Header />

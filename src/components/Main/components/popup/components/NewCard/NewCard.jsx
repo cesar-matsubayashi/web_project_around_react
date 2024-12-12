@@ -1,6 +1,31 @@
+import { useContext, useState } from "react";
+import { CurrentUserContext } from "../../../../../../contexts/CurrentUserContext";
+
 export default function NewCard() {
+  const { handleAddPlaceSubmit } = useContext(CurrentUserContext);
+  const [name, setName] = useState("");
+  const [link, setLink] = useState("");
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleLinkChange = (event) => {
+    setLink(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleAddPlaceSubmit({ name, link });
+  };
+
   return (
-    <form className="form form_add" name="add" noValidate>
+    <form
+      className="form form_add"
+      name="add"
+      noValidate
+      onSubmit={handleSubmit}
+    >
       <fieldset className="form__fieldset">
         <input
           type="text"
@@ -11,6 +36,7 @@ export default function NewCard() {
           minLength="2"
           maxLength="30"
           required
+          onChange={handleNameChange}
         />
         <span className="name-input-error form__input-error"></span>
 
@@ -21,6 +47,7 @@ export default function NewCard() {
           className="form__input form__input_el_link"
           placeholder="Link da imagem"
           required
+          onChange={handleLinkChange}
         />
         <span className="link-input-error form__input-error"></span>
         <button type="submit" name="submit" className="form__button">
