@@ -9,7 +9,7 @@ export default function Card(props) {
   const { handleOpenPopup, card, isLiked, onCardLike, onCardDelete } = props;
   const { name, link, likes, owner } = card;
   const imagePopup = { children: <ImagePopup card={card} /> };
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
   const cardLikeButtonClassName = `gallery__like-btn ${
     isLiked ? "gallery__like-btn_active" : ""

@@ -6,20 +6,26 @@ import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({
-    avatar: "",
-    name: "",
-    about: "",
-  });
+  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
-    api.getUserInfo().then((response) => {
-      setCurrentUser(response);
-    });
+    (async () => {
+      await api.getUserInfo().then((response) => {
+        setCurrentUser(response);
+      });
+    })();
   }, []);
 
+  const handleUpdateUser = (data) => {
+    (async () => {
+      await api.updateUserInfo(data).then((newData) => {
+        setCurrentUser(newData);
+      });
+    })();
+  };
+
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser }}>
       <div className="page">
         <Header />
         <Main />
