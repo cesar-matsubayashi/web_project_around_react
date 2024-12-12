@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import avatar from "../../images/avatar.jpg";
 import editAvatarButton from "../../images/edit-avatar.svg";
 import editButton from "../../images/edit-button.svg";
 import addButton from "../../images/add-btn-sign.svg";
@@ -8,24 +7,12 @@ import NewCard from "./components/popup/components/NewCard/NewCard";
 import EditProfile from "./components/popup/components/EditProfile/EditProfile";
 import EditAvatar from "./components/popup/components/EditAvatar/EditAvatar";
 import Card from "./components/Card/Card";
-import api from "../../utils/api";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function Main(props) {
   const { popup, onOpenPopup, onClosePopup } = props;
-  const [cards, setCards] = useState([]);
+  const { cards, onCardLike, onCardDelete } = props;
   const { currentUser } = useContext(CurrentUserContext);
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((response) => {
-        setCards(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   const newCardPopup = { title: "Novo Local", children: <NewCard /> };
   const editProfilePopup = {
@@ -33,36 +20,6 @@ export default function Main(props) {
     children: <EditProfile />,
   };
   const editAvatarPopup = { title: "Editar Avatar", children: <EditAvatar /> };
-
-  function checkCurrentUserLiked(card) {
-    return card.likes.some((like) => like._id === currentUser._id);
-  }
-
-  async function handleCardLike(card) {
-    const isLiked = checkCurrentUserLiked(card);
-
-    await api
-      .changeLikeCardStatus(card._id, !isLiked)
-      .then((newCard) => {
-        setCards((state) =>
-          state.map((currentCard) =>
-            currentCard._id === card._id ? newCard : currentCard
-          )
-        );
-      })
-      .catch((error) => console.error(error));
-  }
-
-  async function handleCardDelete(card) {
-    await api
-      .deleteCard(card._id)
-      .then(() => {
-        setCards((cards) =>
-          cards.filter((currentCard) => currentCard._id !== card._id)
-        );
-      })
-      .catch((error) => console.error(error));
-  }
 
   return (
     <>
@@ -113,9 +70,8 @@ export default function Main(props) {
               handleOpenPopup={onOpenPopup}
               key={card._id}
               card={card}
-              isLiked={checkCurrentUserLiked(card)}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           ))}
         </section>

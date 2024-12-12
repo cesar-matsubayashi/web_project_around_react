@@ -8,12 +8,26 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [popup, setPopup] = useState(null);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     (async () => {
       await api.getUserInfo().then((response) => {
         setCurrentUser(response);
       });
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      await api
+        .getInitialCards()
+        .then((response) => {
+          setCards(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })();
   }, []);
 
@@ -43,6 +57,36 @@ function App() {
     setPopup();
   }
 
+  function checkCurrentUserLiked(card) {
+    return card.likes.some((like) => like._id === currentUser._id);
+  }
+
+  async function handleCardLike(card) {
+    const isLiked = checkCurrentUserLiked(card);
+
+    await api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((currentCard) =>
+            currentCard._id === card._id ? newCard : currentCard
+          )
+        );
+      })
+      .catch((error) => console.error(error));
+  }
+
+  async function handleCardDelete(card) {
+    await api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((cards) =>
+          cards.filter((currentCard) => currentCard._id !== card._id)
+        );
+      })
+      .catch((error) => console.error(error));
+  }
+
   return (
     <CurrentUserContext.Provider
       value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}
@@ -53,6 +97,9 @@ function App() {
           onOpenPopup={handleOpenPopup}
           onClosePopup={handleClosePopup}
           popup={popup}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
+          cards={cards}
         />
         <Footer />
       </div>
