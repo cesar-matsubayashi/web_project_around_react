@@ -11,8 +11,8 @@ import Card from "./components/Card/Card";
 import api from "../../utils/api";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-export default function Main() {
-  const [popup, setPopup] = useState(null);
+export default function Main(props) {
+  const { popup, onOpenPopup, onClosePopup } = props;
   const [cards, setCards] = useState([]);
   const { currentUser } = useContext(CurrentUserContext);
 
@@ -33,14 +33,6 @@ export default function Main() {
     children: <EditProfile />,
   };
   const editAvatarPopup = { title: "Editar Avatar", children: <EditAvatar /> };
-
-  function handleOpenPopup(popup) {
-    setPopup(popup);
-  }
-
-  function handleClosePopup() {
-    setPopup();
-  }
 
   function checkCurrentUserLiked(card) {
     return card.likes.some((like) => like._id === currentUser._id);
@@ -82,7 +74,7 @@ export default function Main() {
         />
         <div
           className="profile__avatar-edit"
-          onClick={() => handleOpenPopup(editAvatarPopup)}
+          onClick={() => onOpenPopup(editAvatarPopup)}
         >
           <img
             src={editAvatarButton}
@@ -97,14 +89,14 @@ export default function Main() {
             src={editButton}
             alt="Edit button"
             className="profile__edit-btn"
-            onClick={() => handleOpenPopup(editProfilePopup)}
+            onClick={() => onOpenPopup(editProfilePopup)}
           />
           <p className="profile__about">{currentUser.about}</p>
         </div>
 
         <div
           className="profile__add-btn"
-          onClick={() => handleOpenPopup(newCardPopup)}
+          onClick={() => onOpenPopup(newCardPopup)}
         >
           <img
             src={addButton}
@@ -118,7 +110,7 @@ export default function Main() {
         <section className="gallery">
           {cards.map((card) => (
             <Card
-              handleOpenPopup={handleOpenPopup}
+              handleOpenPopup={onOpenPopup}
               key={card._id}
               card={card}
               isLiked={checkCurrentUserLiked(card)}
@@ -128,7 +120,7 @@ export default function Main() {
           ))}
         </section>
         {popup && (
-          <Popup onClose={handleClosePopup} title={popup.title}>
+          <Popup onClose={onClosePopup} title={popup.title}>
             {popup.children}
           </Popup>
         )}
