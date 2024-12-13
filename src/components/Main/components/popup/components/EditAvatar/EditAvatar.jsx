@@ -17,7 +17,6 @@ export default function EditAvatar() {
     <form
       className="form form_edit-avatar"
       name="edit-avatar"
-      noValidate
       onSubmit={handleSubmit}
     >
       <fieldset className="form__fieldset">

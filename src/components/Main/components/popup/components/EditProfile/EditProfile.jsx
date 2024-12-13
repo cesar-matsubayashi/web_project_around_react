@@ -22,12 +22,7 @@ export default function EditProfile() {
   };
 
   return (
-    <form
-      className="form form_edit"
-      name="edit"
-      noValidate
-      onSubmit={handleSubmit}
-    >
+    <form className="form form_edit" name="edit" onSubmit={handleSubmit}>
       <fieldset className="form__fieldset">
         <input
           type="text"

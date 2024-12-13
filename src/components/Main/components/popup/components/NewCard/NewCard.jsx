@@ -20,12 +20,7 @@ export default function NewCard() {
   };
 
   return (
-    <form
-      className="form form_add"
-      name="add"
-      noValidate
-      onSubmit={handleSubmit}
-    >
+    <form className="form form_add" name="add" onSubmit={handleSubmit}>
       <fieldset className="form__fieldset">
         <input
           type="text"
