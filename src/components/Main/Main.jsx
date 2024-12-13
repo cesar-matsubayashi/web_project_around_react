@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import editAvatarButton from "../../images/edit-avatar.svg";
 import editButton from "../../images/edit-button.svg";
 import addButton from "../../images/add-btn-sign.svg";
@@ -8,6 +8,7 @@ import EditProfile from "./components/popup/components/EditProfile/EditProfile";
 import EditAvatar from "./components/popup/components/EditAvatar/EditAvatar";
 import Card from "./components/Card/Card";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import PropTypes from "prop-types";
 
 export default function Main(props) {
   const { popup, onOpenPopup, onClosePopup } = props;
@@ -84,3 +85,12 @@ export default function Main(props) {
     </>
   );
 }
+
+Main.propTypes = {
+  popup: PropTypes.object,
+  onOpenPopup: PropTypes.func,
+  onClosePopup: PropTypes.func,
+  cards: PropTypes.object,
+  onCardLike: PropTypes.func,
+  onCardDelete: PropTypes.func,
+};

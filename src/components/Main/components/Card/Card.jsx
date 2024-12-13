@@ -4,6 +4,7 @@ import likeIconActive from "../../../../images/like-active.svg";
 import ImagePopup from "../popup/components/ImagePopup/ImagePopup";
 import { useContext } from "react";
 import { CurrentUserContext } from "../../../../contexts/CurrentUserContext";
+import PropTypes from "prop-types";
 
 export default function Card(props) {
   const { handleOpenPopup, card, onCardLike, onCardDelete } = props;
@@ -51,3 +52,10 @@ export default function Card(props) {
     </div>
   );
 }
+
+Card.propTypes = {
+  handleOpenPopup: PropTypes.func,
+  card: PropTypes.object,
+  onCardLike: PropTypes.func,
+  onCardDelete: PropTypes.func,
+};

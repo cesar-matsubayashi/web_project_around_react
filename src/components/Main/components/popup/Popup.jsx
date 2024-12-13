@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export default function Popup(props) {
   const { onClose, title, children } = props;
 
@@ -19,3 +21,9 @@ export default function Popup(props) {
     </div>
   );
 }
+
+Popup.propTypes = {
+  title: PropTypes.string,
+  onClose: PropTypes.func,
+  children: PropTypes.node,
+};

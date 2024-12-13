@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export default function ImagePopup(props) {
   const { card } = props;
   return (
@@ -7,3 +9,7 @@ export default function ImagePopup(props) {
     </>
   );
 }
+
+ImagePopup.propTypes = {
+  card: PropTypes.object,
+};
